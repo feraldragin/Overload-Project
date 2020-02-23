@@ -1,9 +1,13 @@
 package components;
 
+import java.util.ArrayList;
+
 public class Outlet extends Component {
-    private Component source;
+
     public Outlet(String name, Component source) {
-        super(name);
-        this.source = source;
+        super(name, source);
+        Reporter.report(this, Reporter.Msg.CREATING);
     }
+
+
 }
