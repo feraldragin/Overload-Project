@@ -5,6 +5,7 @@ public class PowerSource extends Component {
         super(name, null);
         isEngaged = true;
         Reporter.report(this, Reporter.Msg.CREATING);
+        this.attach();
     }
 
     public String display(){

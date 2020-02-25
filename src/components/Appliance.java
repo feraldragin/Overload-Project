@@ -10,14 +10,15 @@ public class Appliance extends Component {
         super(name, source);
         this.draw = draw;
         Reporter.report(this, Reporter.Msg.CREATING);
+        source.setChildren(this);
+        this.attach();
     }
     public void engage(){
-        if (this.getSource().engaged() && onOff){
-            Reporter.report(this, Reporter.Msg.ENGAGING);
-            isEngaged = true;
-            for(Component each : this.getChildren()){
-                each.engage();
-            }
+        Reporter.report(this, Reporter.Msg.ENGAGING);
+        isEngaged = true;
+        for(Component each : this.getChildren()){
+            each.engage();
+
         }
     }
 

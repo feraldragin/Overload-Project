@@ -8,6 +8,7 @@ public abstract class Component {
     protected boolean isEngaged;
     private ArrayList<Component> children = new ArrayList<Component>();
 
+
     public Component getSource(){
         return source;
     }
@@ -16,8 +17,8 @@ public abstract class Component {
         return children;
     }
 
-    public void setChildren(ArrayList<Component> children) {
-        this.children = children;
+    public void setChildren(Component c) {
+        children.add(c);
     }
 
 
@@ -43,7 +44,6 @@ public abstract class Component {
             isEngaged = true;
             Reporter.report(this, Reporter.Msg.ENGAGING);
             for (Component each : children){
-                System.out.println(Reporter.Msg.ENGAGING);
                 each.engage();
             }
         }
@@ -55,7 +55,11 @@ public abstract class Component {
     }
 
     public int getDraw(){
-        return 0;
+        int draw = 0;
+        for (Component each: children){
+            draw+=each.getDraw();
+        }
+        return draw;
     }
 
     protected boolean engaged(){
@@ -65,9 +69,17 @@ public abstract class Component {
     protected void changeDraw(int delta){
 
     }
+
     public void attach(){
-        source.getChildren().add(this);
-        Reporter.report(this, Reporter.Msg.ATTACHING, 2);
+        if (source == null){
+            for (Component each :children){
+                each.attach();
+            }
+        }
+        else {
+            source.getChildren().add(this);
+            Reporter.report(source, this, Reporter.Msg.ATTACHING);
+        }
     }
 
 }

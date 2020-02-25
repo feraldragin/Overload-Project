@@ -11,6 +11,8 @@ public class CircuitBreaker extends Component {
         super(name, source);
         this.draw = draw;
         Reporter.report(this, Reporter.Msg.CREATING);
+        source.setChildren(this);
+        this.attach();
     }
 
     public void engage(){
@@ -25,6 +27,7 @@ public class CircuitBreaker extends Component {
 
     public void turnOn(){
         onOff = true;
+        this.engage();
     }
 
     public void turnOff(){
