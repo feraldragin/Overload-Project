@@ -20,7 +20,9 @@ public class CircuitBreaker extends Component {
             Reporter.report(this, Reporter.Msg.ENGAGING);
             isEngaged = true;
             for(Component each : this.getChildren()){
-                each.engage();
+                if(!each.isEngaged) {
+                    each.engage();
+                }
             }
         }
     }

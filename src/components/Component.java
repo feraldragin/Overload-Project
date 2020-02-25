@@ -44,14 +44,16 @@ public abstract class Component {
             isEngaged = true;
             Reporter.report(this, Reporter.Msg.ENGAGING);
             for (Component each : children){
-                each.engage();
+                if (!each.isEngaged) {
+                    each.engage();
+                }
             }
         }
     }
 
 
     public void disengage(){
-
+        source.getChildren().clear();
     }
 
     public int getDraw(){
