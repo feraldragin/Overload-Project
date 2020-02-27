@@ -1,14 +1,12 @@
 package components;
 
-import java.util.ArrayList;
-
 public class Appliance extends Component {
     private boolean onOff;
-    private int draw;
+    private int rating;
 
-    public Appliance(String name, Component source, int draw) {
+    public Appliance(String name, Component source, int rating) {
         super(name, source);
-        this.draw = draw;
+        this.rating = rating;
         Reporter.report(this, Reporter.Msg.CREATING);
         source.setChildren(this);
         this.attach();
@@ -28,6 +26,16 @@ public class Appliance extends Component {
     public void turnOn(){
         onOff = true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
+        Component source = getSource();
+        while (source != null) {
+            source.changeDraw(this.getRating());
+            if (source.blown == true){
+                break;
+            }
+            else {
+                source = source.getSource();
+            }
+        }
     }
 
     public void turnOff(){
@@ -40,7 +48,7 @@ public class Appliance extends Component {
     }
 
     public int getRating(){
-        return this.draw;
+        return this.rating;
     }
     
 }

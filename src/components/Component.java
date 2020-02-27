@@ -6,6 +6,8 @@ public abstract class Component {
     private String name;
     private Component source;
     protected boolean isEngaged;
+    protected int draw;
+    protected boolean blown = false;
     private ArrayList<Component> children = new ArrayList<Component>();
 
 
@@ -57,10 +59,6 @@ public abstract class Component {
     }
 
     public int getDraw(){
-        int draw = 0;
-        for (Component each: children){
-            draw+=each.getDraw();
-        }
         return draw;
     }
 
@@ -69,6 +67,8 @@ public abstract class Component {
     }
 
     protected void changeDraw(int delta){
+        draw += delta;
+        Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
 
     }
 

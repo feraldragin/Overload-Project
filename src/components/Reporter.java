@@ -108,7 +108,7 @@ public class Reporter {
             final CircuitBreaker cb = (CircuitBreaker)comp;
             identity += "(" + (cb.isSwitchOn()?"on":"off");
             identity += "; draw " + comp.getDraw() +
-                        "; limit " + cb.getLimit() + ")";
+                    "; limit " + cb.getLimit() + ")";
         }
         else {
             identity += "(draw " + comp.getDraw() + ")";
