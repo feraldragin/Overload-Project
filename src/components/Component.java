@@ -55,8 +55,17 @@ public abstract class Component {
 
 
     public void disengage(){
-        source.getChildren().clear();
+        if (this.isEngaged){
+            isEngaged = false;
+            Reporter.report(this, Reporter.Msg.DISENGAGING);
+            for (Component each : children){
+                if (each.isEngaged) {
+                    each.disengage();
+                }
+            }
+        }
     }
+
 
     public int getDraw(){
         return draw;
@@ -83,5 +92,6 @@ public abstract class Component {
             Reporter.report(source, this, Reporter.Msg.ATTACHING);
         }
     }
+
 
 }

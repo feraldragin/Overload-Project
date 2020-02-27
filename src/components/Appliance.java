@@ -1,7 +1,7 @@
 package components;
 
 public class Appliance extends Component {
-    private boolean onOff;
+    private boolean onOff = false;
     private int rating;
 
     public Appliance(String name, Component source, int rating) {
@@ -14,11 +14,16 @@ public class Appliance extends Component {
     public void engage(){
         Reporter.report(this, Reporter.Msg.ENGAGING);
         isEngaged = true;
-        for(Component each : this.getChildren()){
-            if (!each.isEngaged) {
-                each.engage();
+        if (onOff == true) {
+            Component source = getSource();
+            while (source != null) {
+                source.changeDraw(this.getRating());
+                if (source.blown == true) {
+                    break;
+                } else {
+                    source = source.getSource();
+                }
             }
-
         }
     }
 
@@ -49,6 +54,20 @@ public class Appliance extends Component {
 
     public int getRating(){
         return this.rating;
+    }
+
+    @Override
+    public void disengage(){
+        if (this.isEngaged) {
+            isEngaged = false;
+            Reporter.report(this, Reporter.Msg.DISENGAGING);
+
+            Component source = getSource();
+            while (source != null) {
+                source.changeDraw(-this.getRating());
+                source = source.getSource();
+            }
+        }
     }
     
 }

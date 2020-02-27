@@ -35,6 +35,9 @@ public class CircuitBreaker extends Component {
 
     public void turnOff(){
         onOff = false;
+        Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
+        this.getSource().changeDraw(-this.getSource().getDraw());
+        this.disengage();
     }
 
     public boolean isSwitchOn(){
@@ -52,6 +55,8 @@ public class CircuitBreaker extends Component {
         if (draw > this.getLimit()){
             Reporter.report(this, Reporter.Msg.BLOWN, draw);
             blown = true;
+            this.turnOff();
+            this.engage();
         }
         else{
             Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);
