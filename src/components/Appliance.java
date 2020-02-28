@@ -1,14 +1,13 @@
 package components;
 
 public class Appliance extends Component {
-    private boolean onOff = false;
     private int rating;
 
     public Appliance(String name, Component source, int rating) {
         super(name, source);
         this.rating = rating;
         Reporter.report(this, Reporter.Msg.CREATING);
-        source.setChildren(this);
+        //source.setChildren(this);
         this.attach();
     }
     public void engage(){
@@ -33,13 +32,14 @@ public class Appliance extends Component {
         onOff = true;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
         Component source = getSource();
-        while (source != null) {
-            source.changeDraw(this.getRating());
-            if (source.blown == true){
-                break;
-            }
-            else {
-                source = source.getSource();
+        if (source.isEngaged == true) {
+            while (source != null) {
+                source.changeDraw(this.getRating());
+                if (source.blown == true) {
+                    break;
+                } else {
+                    source = source.getSource();
+                }
             }
         }
     }

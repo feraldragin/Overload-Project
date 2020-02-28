@@ -3,7 +3,6 @@ package components;
 import java.util.ArrayList;
 
 public class CircuitBreaker extends Component {
-    private boolean onOff;
     private int limit;
 
 
@@ -11,7 +10,7 @@ public class CircuitBreaker extends Component {
         super(name, source);
         this.limit = limit;
         Reporter.report(this, Reporter.Msg.CREATING);
-        source.setChildren(this);
+        //source.setChildren(this);
         this.attach();
     }
 

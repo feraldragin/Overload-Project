@@ -8,6 +8,7 @@ public abstract class Component {
     protected boolean isEngaged;
     protected int draw;
     protected boolean blown = false;
+    protected boolean onOff = false;
     private ArrayList<Component> children = new ArrayList<Component>();
 
 
@@ -45,7 +46,7 @@ public abstract class Component {
         if (source.isEngaged){
             isEngaged = true;
             Reporter.report(this, Reporter.Msg.ENGAGING);
-            for (Component each : children){
+            for (Component each : this.getChildren()){
                 if (!each.isEngaged) {
                     each.engage();
                 }
@@ -92,6 +93,8 @@ public abstract class Component {
             Reporter.report(source, this, Reporter.Msg.ATTACHING);
         }
     }
+
+    public abstract boolean isSwitchOn();
 
 
 }

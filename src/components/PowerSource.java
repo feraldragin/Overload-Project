@@ -21,5 +21,9 @@ public class PowerSource extends Component {
         }
     }
 
+    public boolean isSwitchOn(){
+        return true;
+    }
+
 
 }
