@@ -94,6 +94,28 @@ public abstract class Component {
         }
     }
 
+    public void display(){
+        if(this instanceof PowerSource) {
+            System.out.println();
+        }
+        String result = "";
+        Component source = this.source;
+        while(source != null) {
+            result += "    ";
+            source = source.getSource();
+        }
+        result += "+ "+ Reporter.identify(this);
+        System.out.print(result);
+        System.out.println();
+        for(Component each: this.getChildren()) {
+            each.display();
+        }
+        if(this instanceof PowerSource) {
+            System.out.println();
+        }
+    }
+
+
     public abstract boolean isSwitchOn();
 
 

@@ -8,10 +8,6 @@ public class PowerSource extends Component {
         this.attach();
     }
 
-    public String display(){
-        return "null";
-    }
-
     public void engage(){
         Reporter.report(this, Reporter.Msg.ENGAGING);
         for (Component each : this.getChildren()){
