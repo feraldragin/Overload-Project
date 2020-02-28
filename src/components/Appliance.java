@@ -15,6 +15,7 @@ public class Appliance extends Component {
         Reporter.report(this, Reporter.Msg.ENGAGING);
         isEngaged = true;
         if (onOff == true) {
+            this.changeDraw(this.getRating());
             Component source = getSource();
             while (source != null) {
                 source.changeDraw(this.getRating());
@@ -46,6 +47,19 @@ public class Appliance extends Component {
     public void turnOff(){
         onOff = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
+        if (this.isEngaged){
+            Component source = getSource();
+            while (source != null) {
+                if (source instanceof CircuitBreaker){
+                    source.draw = 0;
+                    break;
+                }
+                else {
+                    source.changeDraw(-this.getRating());
+                    source = source.getSource();
+                }
+            }
+        }
     }
 
     public boolean isSwitchOn(){
@@ -61,11 +75,17 @@ public class Appliance extends Component {
         if (this.isEngaged) {
             isEngaged = false;
             Reporter.report(this, Reporter.Msg.DISENGAGING);
-
+            this.changeDraw(-this.getRating());
             Component source = getSource();
             while (source != null) {
-                source.changeDraw(-this.getRating());
-                source = source.getSource();
+                if (source instanceof CircuitBreaker){
+                    source.draw = 0;
+                    break;
+                }
+                else {
+                    source.changeDraw(-this.getRating());
+                    source = source.getSource();
+                }
             }
         }
     }

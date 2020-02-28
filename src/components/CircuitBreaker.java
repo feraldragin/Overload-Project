@@ -25,6 +25,7 @@ public class CircuitBreaker extends Component {
 
     public void turnOn(){
         onOff = true;
+        blown = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_ON);
         for(Component each : this.getChildren()){
             if(!each.isEngaged) {
@@ -37,7 +38,9 @@ public class CircuitBreaker extends Component {
         onOff = false;
         Reporter.report(this, Reporter.Msg.SWITCHING_OFF);
         this.getSource().changeDraw(-this.getSource().getDraw());
-        this.disengage();
+        for (Component each: getChildren()){
+            each.disengage();
+        }
     }
 
     public boolean isSwitchOn(){
@@ -56,7 +59,7 @@ public class CircuitBreaker extends Component {
             Reporter.report(this, Reporter.Msg.BLOWN, draw);
             blown = true;
             this.turnOff();
-            this.engage();
+            //this.engage();
         }
         else{
             Reporter.report(this, Reporter.Msg.DRAW_CHANGE, delta);

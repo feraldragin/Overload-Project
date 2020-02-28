@@ -38,7 +38,7 @@ public abstract class Component {
     }
 
     public String toString() {
-        return this.name;
+        return Reporter.identify( this );
     }
 
     public  void engage(){
