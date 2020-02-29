@@ -9,6 +9,7 @@ public class PowerSource extends Component {
     }
 
     public void engage(){
+        Reporter.report(this, Reporter.Msg.POWERING_UP);
         Reporter.report(this, Reporter.Msg.ENGAGING);
         for (Component each : this.getChildren()){
             if (!each.isEngaged) {

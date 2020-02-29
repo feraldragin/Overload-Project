@@ -50,8 +50,37 @@ public class Overload {
         );
     }
 
-    public static void main( String[] args ) {
+    public static void readFile(String file) throws FileNotFoundException {
+        Map<String, Component> componentMap = new HashMap<String, Component>();
+        Scanner in = new Scanner(new File(file));
+        while(in.hasNextLine()){
+            String[] tokens = in.nextLine().split(" ");
+            if (tokens[0].equals("PowerSource")){
+                componentMap.put(tokens[1], new PowerSource(tokens[1]));
+            }
+            else if (tokens[0].equals("CircuitBreaker")){
+                componentMap.put(tokens[1], new CircuitBreaker(tokens[1], componentMap.get(tokens[2]), Integer.parseInt(tokens[3])));
+            }
+            else if (tokens[0].equals("Outlet")){
+                componentMap.put(tokens[1], new Outlet(tokens[1], componentMap.get(tokens[2])));
+            }
+            else if (tokens[0].equals("Appliance")){
+                componentMap.put(tokens[1], new Appliance(tokens[1], componentMap.get(tokens[2]),Integer.parseInt(tokens[3])));
+            }
+
+        }
+        System.out.println(componentMap.size() + " components created. \nStarting up the main circuit(s).");
+        for (Component each : componentMap.values()){
+            if (each instanceof PowerSource){
+                each.engage();
+            }
+        }
+    }
+
+    public static void main( String[] args ) throws FileNotFoundException {
         System.out.println( "Overload Project, CS2" );
+        readFile(args[0]);
+
     }
 
 }
