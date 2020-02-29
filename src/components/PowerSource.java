@@ -6,6 +6,7 @@ public class PowerSource extends Component {
         isEngaged = true;
         Reporter.report(this, Reporter.Msg.CREATING);
         this.attach();
+        switchable = false;
     }
 
     public void engage(){
@@ -21,6 +22,8 @@ public class PowerSource extends Component {
     public boolean isSwitchOn(){
         return true;
     }
+    public void turnOff(){}
+    public void turnOn(){}
 
 
 }

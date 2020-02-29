@@ -9,6 +9,7 @@ public abstract class Component {
     protected int draw;
     protected boolean blown = false;
     protected boolean onOff = false;
+    protected boolean switchable;
     private ArrayList<Component> children = new ArrayList<Component>();
 
 
@@ -117,6 +118,13 @@ public abstract class Component {
 
 
     public abstract boolean isSwitchOn();
+
+    public boolean isSwitchable(){
+        return switchable;
+    }
+
+    public abstract void turnOn();
+    public abstract void turnOff();
 
 
 }

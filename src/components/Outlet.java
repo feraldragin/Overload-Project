@@ -9,11 +9,15 @@ public class Outlet extends Component {
         Reporter.report(this, Reporter.Msg.CREATING);
         //source.setChildren(this);
         this.attach();
+        switchable = false;
     }
 
     public boolean isSwitchOn(){
         return true;
     }
+
+    public void turnOff(){}
+    public void turnOn(){}
 
 
 }

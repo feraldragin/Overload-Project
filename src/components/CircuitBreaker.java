@@ -12,6 +12,7 @@ public class CircuitBreaker extends Component {
         Reporter.report(this, Reporter.Msg.CREATING);
         //source.setChildren(this);
         this.attach();
+        switchable = true;
     }
 
     public void engage(){
